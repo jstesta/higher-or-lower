@@ -55,21 +55,6 @@ var QueenOfDiamonds = Card{Queen, Diamonds}
 var KingOfDiamonds = Card{King, Diamonds}
 var AceOfDiamonds = Card{Ace, Diamonds}
 
-var valueToDisplayValue = map[int]string{
-	Two.faceValue:   "2",
-	Three.faceValue: "3",
-	Four.faceValue:  "4",
-	Five.faceValue:  "5",
-	Six.faceValue:   "6",
-	Seven.faceValue: "7",
-	Eight.faceValue: "8",
-	Nine.faceValue:  "9",
-	Ten.faceValue:   "10",
-	Jack.faceValue:  "J",
-	Queen.faceValue: "Q",
-	King.faceValue:  "K",
-	Ace.faceValue:   "A",
-}
 
 type Card struct {
 	value Value
@@ -81,11 +66,11 @@ func (c Card) Suit() Suit {
 }
 
 func (c Card) Name() string {
-	return fmt.Sprintf("%s of %s", valueToDisplayValue[c.value.faceValue], c.suit.Name)
+	return fmt.Sprintf("%s of %s", c.value.name, c.suit.Name)
 }
 
 func (c Card) ShortName() string {
-	return fmt.Sprintf("%s%s", valueToDisplayValue[c.value.faceValue], c.suit.Symbol)
+	return fmt.Sprintf("%s%s", c.value.shortName, c.suit.Symbol)
 }
 
 func (c Card) FaceValue() int {
@@ -106,4 +91,8 @@ func (c Card) CompareTo(o Card) int {
 	}
 
 	return -1
+}
+
+func (c Card) String() string {
+	return c.Name()
 }

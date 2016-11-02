@@ -1,5 +1,7 @@
 package cards
 
+import "fmt"
+
 type Deck []Card
 
 func NewDeck() Deck {
@@ -68,6 +70,7 @@ func (d Deck) Contains(c Card) bool {
 	return false
 }
 
+// Returns a slice from this Deck without the specified Card
 func (d Deck) Remove(c Card) Deck {
 	for idx, a := range d {
 		if a == c {
@@ -78,6 +81,11 @@ func (d Deck) Remove(c Card) Deck {
 	return d
 }
 
+func (d Deck) Add(c Card) Deck {
+	return append(d, c)
+}
+
+// Returns a new Deck with only cards from this Deck of the specified Suit
 func (d Deck) GetBySuit(s Suit) Deck {
 	bySuit := make(Deck, 0, 13)
 	for _, c := range d {
@@ -88,6 +96,7 @@ func (d Deck) GetBySuit(s Suit) Deck {
 	return bySuit
 }
 
+// Returns a new Deck with only cards from this Deck of the specified Value
 func (d Deck) GetByValue(v Value) Deck {
 	byValue := make(Deck, 0, 4)
 	for _, c := range d {
@@ -96,4 +105,17 @@ func (d Deck) GetByValue(v Value) Deck {
 		}
 	}
 	return byValue
+}
+
+func (d Deck) String() (s string) {
+	s = "Deck["
+	prefixLength := len(s)
+	for _, c := range d {
+		s += fmt.Sprintf("%s, ", c)
+	}
+	if (len(s) > prefixLength) {
+		s = s[:len(s)-2]
+	}
+	s += "]"
+	return
 }

@@ -81,3 +81,19 @@ func TestDeck_GetByValue(t *testing.T) {
 		}
 	}
 }
+
+func TestDeck_Add(t *testing.T) {
+
+	deck := make(Deck, 0)
+	card := AceOfDiamonds
+
+	deck = deck.Add(card)
+
+	if len(deck) != 1 {
+		t.Error("Add check failed: deck does not have 1 card")
+	}
+
+	if !deck.Contains(card) {
+		t.Error("Add check failed: deck does not contain the added card")
+	}
+}
