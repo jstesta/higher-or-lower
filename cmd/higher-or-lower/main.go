@@ -1,7 +1,7 @@
 package main
 
 import (
-	//"flag"
+	"bufio"
 	"fmt"
 	"github.com/jstesta/higher-or-lower/cards"
 	"github.com/jstesta/higher-or-lower/game"
@@ -15,12 +15,26 @@ func main() {
 
 	game := game.NewGame()
 
-	// TODO input for cards
+	reader := bufio.NewReader(os.Stdin)
 
-	logger.Println(fmt.Sprintf("%s", game))
-	game.Draw(cards.AceOfClubs)
-	game.Draw(cards.FiveOfDiamonds)
-	logger.Println(fmt.Sprintf("%s", game))
+	for {
+		fmt.Print("Enter card: ")
+		text, _ := reader.ReadString('\n')
+		text = text[:len(text)-1] // trim off trailing newline
+
+		if text == "q" {
+			fmt.Println("Quit")
+			break
+		}
+
+		card, err := cards.ParseCard(text)
+		if err != nil {
+			fmt.Println("Bad input: " + err.Error())
+			continue
+		}
+		fmt.Println("Input Card: " + card.String())
+		game.Draw(*card)
+	}
 
 	logger.Print("end")
 }

@@ -1,6 +1,10 @@
 package cards
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+	"strings"
+)
 
 var Two = Value{"Two", 2, "2"}
 var Three = Value{"Three", 3, "3"}
@@ -45,12 +49,16 @@ func (v Value) String() string {
 func ParseValue(input string) (*Value, error) {
 
 	if len(input) < 1 || len(input) > 2 {
-		return nil, errors.New("unable to parse Value input string")
+		return nil, errors.New(
+			fmt.Sprintf("unable to parse Value input string: string length '%s'", input))
 	}
 
-	if valueMap[input] != nil {
-		return valueMap[input], nil
+	input = strings.ToUpper(input)
+
+	if valueMap[input] == nil {
+		return nil, errors.New(
+			fmt.Sprintf("unable to parse Value input string: unknown value '%s'", input))
 	}
 
-	return nil, errors.New("unable to parse Value input string")
+	return valueMap[input], nil
 }

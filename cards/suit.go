@@ -1,6 +1,9 @@
 package cards
 
-import "errors"
+import (
+	"errors"
+	"strings"
+)
 
 var Hearts = Suit{1, "Hearts", "♥", "H"}
 var Spades = Suit{2, "Spades", "♠", "S"}
@@ -30,6 +33,8 @@ func ParseSuit(input string) (*Suit, error) {
 	if len(input) != 1 {
 		return nil, errors.New("unable to parse Suit input string")
 	}
+
+	input = strings.ToUpper(input)
 
 	if suitMap[input] != nil {
 		return suitMap[input], nil

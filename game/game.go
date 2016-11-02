@@ -6,9 +6,9 @@ import (
 )
 
 type Game struct {
-	available    cards.Deck
-	used         cards.Deck
-	lastUsedCard *cards.Card
+	available     cards.Deck
+	used          cards.Deck
+	lastDrawnCard *cards.Card
 }
 
 func NewGame() *Game {
@@ -25,14 +25,14 @@ func (g *Game) UsedCards() cards.Deck {
 	return g.used
 }
 
-func (g *Game) LastUsedCard() *cards.Card {
-	return g.lastUsedCard
+func (g *Game) LastDrawnCard() *cards.Card {
+	return g.lastDrawnCard
 }
 
 func (g *Game) Draw(c cards.Card) {
 	g.available = g.available.Remove(c)
 	g.used = g.used.Add(c)
-	g.lastUsedCard = &c
+	g.lastDrawnCard = &c
 }
 
 func (g *Game) String() string {
