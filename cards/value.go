@@ -1,5 +1,7 @@
 package cards
 
+import "errors"
+
 var Two = Value{"Two", 2, "2"}
 var Three = Value{"Three", 3, "3"}
 var Four = Value{"Four", 4, "4"}
@@ -14,6 +16,22 @@ var Queen = Value{"Queen", 12, "Q"}
 var King = Value{"King", 13, "K"}
 var Ace = Value{"Ace", 14, "A"}
 
+var valueMap = map[string]*Value{
+	Two.shortName:   &Two,
+	Three.shortName: &Three,
+	Four.shortName:  &Four,
+	Five.shortName:  &Five,
+	Six.shortName:   &Six,
+	Seven.shortName: &Seven,
+	Eight.shortName: &Eight,
+	Nine.shortName:  &Nine,
+	Ten.shortName:   &Ten,
+	Jack.shortName:  &Jack,
+	Queen.shortName: &Queen,
+	King.shortName:  &King,
+	Ace.shortName:   &Ace,
+}
+
 type Value struct {
 	name      string
 	faceValue int
@@ -22,4 +40,17 @@ type Value struct {
 
 func (v Value) String() string {
 	return v.name
+}
+
+func ParseValue(input string) (*Value, error) {
+
+	if len(input) < 1 || len(input) > 2 {
+		return nil, errors.New("unable to parse Value input string")
+	}
+
+	if valueMap[input] != nil {
+		return valueMap[input], nil
+	}
+
+	return nil, errors.New("unable to parse Value input string")
 }

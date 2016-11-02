@@ -1,6 +1,9 @@
 package cards
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 var TwoOfHearts = Card{Two, Hearts}
 var ThreeOfHearts = Card{Three, Hearts}
@@ -55,7 +58,6 @@ var QueenOfDiamonds = Card{Queen, Diamonds}
 var KingOfDiamonds = Card{King, Diamonds}
 var AceOfDiamonds = Card{Ace, Diamonds}
 
-
 type Card struct {
 	value Value
 	suit  Suit
@@ -95,4 +97,36 @@ func (c Card) CompareTo(o Card) int {
 
 func (c Card) String() string {
 	return c.Name()
+}
+
+func ParseCard(input string) (*Card, error) {
+
+	if len(input) < 2 || len(input) > 3 {
+		return nil, errors.New("unable to parse card input string")
+	}
+
+	var valuePart string
+	var suitPart string
+	switch len(input) {
+	case 2:
+		valuePart = input[:1]
+		suitPart = input[1:]
+		break
+	case 3:
+		valuePart = input[:2]
+		suitPart = input[2:]
+		break
+	}
+
+	value, err := ParseValue(valuePart)
+	if err != nil {
+		return nil, err
+	}
+
+	suit, err := ParseSuit(suitPart)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Card{value: *value, suit: *suit}, nil
 }

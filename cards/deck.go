@@ -113,7 +113,7 @@ func (d Deck) String() (s string) {
 	for _, c := range d {
 		s += fmt.Sprintf("%s, ", c)
 	}
-	if (len(s) > prefixLength) {
+	if len(s) > prefixLength {
 		s = s[:len(s)-2]
 	}
 	s += "]"

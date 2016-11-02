@@ -2,11 +2,11 @@ package main
 
 import (
 	//"flag"
+	"fmt"
 	"github.com/jstesta/higher-or-lower/cards"
+	"github.com/jstesta/higher-or-lower/game"
 	"log"
 	"os"
-	"github.com/jstesta/higher-or-lower/game"
-	"fmt"
 )
 
 func main() {
@@ -15,9 +15,11 @@ func main() {
 
 	game := game.NewGame()
 
+	// TODO input for cards
+
 	logger.Println(fmt.Sprintf("%s", game))
-	game.Use(cards.AceOfClubs)
-	game.Use(cards.FiveOfDiamonds)
+	game.Draw(cards.AceOfClubs)
+	game.Draw(cards.FiveOfDiamonds)
 	logger.Println(fmt.Sprintf("%s", game))
 
 	logger.Print("end")
