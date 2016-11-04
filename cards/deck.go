@@ -5,6 +5,7 @@ import "fmt"
 type Deck []Card
 
 func NewDeck() Deck {
+
 	d := make(Deck, 0, 52)
 	d = append(d, TwoOfHearts)
 	d = append(d, ThreeOfHearts)
@@ -61,7 +62,14 @@ func NewDeck() Deck {
 	return d
 }
 
+func EmptyDeck() Deck {
+
+	d := make(Deck, 0)
+	return d
+}
+
 func (d Deck) Contains(c Card) bool {
+
 	for _, a := range d {
 		if a == c {
 			return true
@@ -72,6 +80,7 @@ func (d Deck) Contains(c Card) bool {
 
 // Returns a slice from this Deck without the specified Card
 func (d Deck) Remove(c Card) Deck {
+
 	for idx, a := range d {
 		if a == c {
 			d[len(d)-1], d[idx] = d[idx], d[len(d)-1]
@@ -87,6 +96,7 @@ func (d Deck) Add(c Card) Deck {
 
 // Returns a new Deck with only cards from this Deck of the specified Suit
 func (d Deck) GetBySuit(s Suit) Deck {
+
 	bySuit := make(Deck, 0, 13)
 	for _, c := range d {
 		if c.suit.id == s.id {
@@ -98,6 +108,7 @@ func (d Deck) GetBySuit(s Suit) Deck {
 
 // Returns a new Deck with only cards from this Deck of the specified Value
 func (d Deck) GetByValue(v Value) Deck {
+
 	byValue := make(Deck, 0, 4)
 	for _, c := range d {
 		if c.value.faceValue == v.faceValue {
@@ -107,7 +118,30 @@ func (d Deck) GetByValue(v Value) Deck {
 	return byValue
 }
 
+func (d Deck) Split(c Card) (Deck, Deck, Deck) {
+
+	less := EmptyDeck()
+	equal := EmptyDeck()
+	greater := EmptyDeck()
+
+	for _, card := range d {
+		switch card.CompareTo(c) {
+		case -1:
+			less = less.Add(card)
+			break
+		case 0:
+			equal = equal.Add(card)
+			break
+		case 1:
+			greater = greater.Add(card)
+			break
+		}
+	}
+	return less, equal, greater
+}
+
 func (d Deck) String() (s string) {
+
 	s = "Deck["
 	prefixLength := len(s)
 	for _, c := range d {

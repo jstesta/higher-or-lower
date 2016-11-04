@@ -17,6 +17,7 @@ func main() {
 
 	reader := bufio.NewReader(os.Stdin)
 
+	fmt.Println("Enter 'q' to quit")
 	for {
 		fmt.Print("Enter card: ")
 		text, _ := reader.ReadString('\n')
@@ -34,6 +35,11 @@ func main() {
 		}
 		fmt.Println("Input Card: " + card.String())
 		game.Draw(*card)
+
+		chanceGreater, chanceEqual, chanceLess := game.Chances()
+		fmt.Println(fmt.Sprintf(
+			"Less: %2.2f%%, Equal: %2.2f%%, Greater: %2.2f%%",
+			chanceLess, chanceEqual, chanceGreater))
 	}
 
 	logger.Print("end")

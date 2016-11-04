@@ -3,6 +3,7 @@ package cards
 import (
 	"errors"
 	"strings"
+	"fmt"
 )
 
 var Hearts = Suit{1, "Hearts", "♥", "H"}
@@ -34,11 +35,12 @@ func ParseSuit(input string) (*Suit, error) {
 		return nil, errors.New("unable to parse Suit input string")
 	}
 
-	input = strings.ToUpper(input)
+	upperInput := strings.ToUpper(input)
 
-	if suitMap[input] != nil {
-		return suitMap[input], nil
+	if suitMap[upperInput] == nil {
+		return nil, errors.New(
+			fmt.Sprintf("unable to parse Suit input string: unknown Suit '%s'", input))
 	}
 
-	return nil, errors.New("unable to parse Suit input string")
+	return suitMap[upperInput], nil
 }

@@ -53,12 +53,12 @@ func ParseValue(input string) (*Value, error) {
 			fmt.Sprintf("unable to parse Value input string: string length '%s'", input))
 	}
 
-	input = strings.ToUpper(input)
+	upperInput := strings.ToUpper(input)
 
-	if valueMap[input] == nil {
+	if valueMap[upperInput] == nil {
 		return nil, errors.New(
 			fmt.Sprintf("unable to parse Value input string: unknown value '%s'", input))
 	}
 
-	return valueMap[input], nil
+	return valueMap[upperInput], nil
 }
