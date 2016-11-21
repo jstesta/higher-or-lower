@@ -6,11 +6,11 @@ import (
 )
 
 type Game struct {
-	available     cards.Deck
-	used          cards.Deck
-	lastDrawnCard *cards.Card
-	remainingLess cards.Deck
-	remainingEqual cards.Deck
+	available        cards.Deck
+	used             cards.Deck
+	lastDrawnCard    *cards.Card
+	remainingLess    cards.Deck
+	remainingEqual   cards.Deck
 	remainingGreater cards.Deck
 }
 
@@ -56,8 +56,8 @@ func (g *Game) Chances() (float32, float32, float32) {
 
 	totalf := float32(total)
 
-	less := float32(len(g.remainingGreater))
+	less := float32(len(g.remainingLess))
 	equal := float32(len(g.remainingEqual))
-	greater := float32(len(g.remainingLess))
-	return 100*less/totalf, 100*equal/totalf, 100*greater/totalf
+	greater := float32(len(g.remainingGreater))
+	return 100 * less / totalf, 100 * equal / totalf, 100 * greater / totalf
 }

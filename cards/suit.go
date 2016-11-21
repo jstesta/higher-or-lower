@@ -2,8 +2,8 @@ package cards
 
 import (
 	"errors"
-	"strings"
 	"fmt"
+	"strings"
 )
 
 var Hearts = Suit{1, "Hearts", "♥", "H"}
